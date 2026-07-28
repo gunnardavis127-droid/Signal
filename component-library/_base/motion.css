@@ -1,0 +1,162 @@
+/*
+ * BASE: motion.css
+ * WHAT: Standard motion vocabulary for the component library — CSS classes
+ *       and @keyframe animations used by every component. Designed to pair
+ *       with GSAP (ScrollTrigger) for scroll-driven reveals and with vanilla
+ *       CSS transitions for hover/state micro-interactions.
+ * VARIABLES DEFINED: none
+ * VARIABLES CONSUMED:
+ *   --transition-fast, --transition-base, --transition-slow
+ *   --ease-out-expo, --ease-in-out
+ * DEPENDENCIES: custom-properties.css (must be loaded before this file)
+ *
+ * PATTERN: Each motion class sets up the "hidden" state and transition
+ *          properties. GSAP or Intersection Observer toggles the "visible"
+ *          class at runtime. Every class has a prefers-reduced-motion fallback.
+ */
+
+/* ==========================================================================
+   SCROLL REVEAL
+   --------------------------------------------------------------------------
+   Apply .reveal to any element that should animate into view on scroll.
+   GSAP usage: gsap.fromTo('.reveal', { autoAlpha: 0, y: 30 }, {
+     autoAlpha: 1, y: 0, duration: 0.8, ease: 'expo.out',
+     scrollTrigger: { trigger: '.reveal', start: 'top 85%' }
+   })
+   Or toggle .reveal--visible with an Intersection Observer for CSS-only.
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity var(--transition-base) var(--ease-out-expo),
+    transform var(--transition-base) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   FADE IN
+   --------------------------------------------------------------------------
+   Opacity-only entrance. Use for elements that should appear without
+   movement — overlay backgrounds, subtle UI elements.
+   ========================================================================== */
+
+.fade-in {
+  opacity: 0;
+  transition: opacity var(--transition-base) var(--ease-out-expo);
+  will-change: opacity;
+}
+
+.fade-in--visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   STAGGERED CHILDREN
+   --------------------------------------------------------------------------
+   Apply .stagger-children to a parent to set up staggered delays on its
+   direct children. GSAP usage:
+   gsap.from('.stagger-children > *', {
+     autoAlpha: 0, y: 24, duration: 0.6, stagger: 0.12, ease: 'expo.out',
+     scrollTrigger: { trigger: '.stagger-children', start: 'top 80%' }
+   })
+   The CSS below sets the hidden state and transition; JS handles timing.
+   ========================================================================== */
+
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--transition-base) var(--ease-out-expo),
+    transform var(--transition-base) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.stagger-children > *.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   HOVER LIFT
+   --------------------------------------------------------------------------
+   Subtle scale(1.02) on hover — use on cards, clickable blocks,
+   featured items. Gives a "lifting off the page" feel.
+   ========================================================================== */
+
+.hover-lift {
+  transition: transform var(--transition-fast) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: scale(1.02);
+}
+
+/* ==========================================================================
+   HOVER UNDERLINE
+   --------------------------------------------------------------------------
+   Animated underline that slides in from left on hover. Apply to <a> tags
+   or any inline text element that needs a link-style underline reveal.
+   Uses a pseudo-element with scaleX transform for GPU-friendly animation.
+   ========================================================================== */
+
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-fast) var(--ease-out-expo);
+}
+
+.hover-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   --------------------------------------------------------------------------
+   Respects the OS-level reduced-motion preference. Disables all animation
+   and transition properties on motion classes. GSAP should also check
+   ScrollTrigger.matchMedia() or window.matchMedia('(prefers-reduced-motion)').
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .fade-in,
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .hover-lift {
+    transition: none;
+    will-change: auto;
+  }
+
+  .hover-lift:hover {
+    transform: none;
+  }
+
+  .hover-underline::after {
+    transition: none;
+  }
+}

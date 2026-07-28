@@ -1,0 +1,163 @@
+/*
+ * COMPONENT: card-grid
+ * USE: Responsive card grid — 3 columns on desktop, 2 on tablet, 1 on mobile.
+ *      Each card: icon → title (h3) → description → optional link arrow.
+ *      Hover lift effect with shadow. Scroll-triggered staggered reveal.
+ * BEST FOR: Services overview, features section, product comparison, team grid.
+ * EXPECTED CSS VARS (override in client custom-properties.css):
+ *   --color-bg, --color-border, --border-radius
+ *   --color-text, --color-text-muted, --color-accent
+ *   --space-md, --space-lg, --space-xl, --space-2xl
+ *   --font-weight-bold, --font-weight-normal
+ *   --transition-fast, --transition-base, --ease-out-expo
+ *   --line-height-tight, --line-height-body
+ * MOTION: cards stagger-reveal on scroll (0ms, 100ms, 200ms…)
+ * INTERACTION: .hover-lift — scale(1.02) + box-shadow on hover
+ * USED IN: grid-3col.html
+ *          [add client projects here]
+ */
+
+/* ── Card section wrapper ───────────────────────────────────────────────── */
+.card-section__header {
+  text-align: center;
+  max-width: 56ch;
+  margin-inline: auto;
+  margin-block-end: var(--space-2xl);
+}
+
+.card-section__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+  margin-block-end: var(--space-md);
+}
+
+.card-section__lede {
+  font-family: var(--font-body);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
+/* ── Grid ───────────────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+/* ── Individual card ────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition:
+    transform var(--transition-fast) var(--ease-out-expo),
+    box-shadow var(--transition-fast) var(--ease-out-expo);
+  position: relative;
+}
+
+.card__icon {
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+.card__desc {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.card__link {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: gap var(--transition-fast) var(--ease-out-expo);
+}
+
+.card__link:hover {
+  gap: var(--space-sm);
+}
+
+/* ── Hover lift ─────────────────────────────────────────────────────────── */
+/*
+ * .hover-lift is defined in _base/motion.css, but here we augment it with
+ * a card-specific box-shadow on hover for a richer effect.
+ */
+.card.hover-lift:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Motion: initial hidden (JS toggles) ────────────────────────────────── */
+.card {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Focus-visible / keyboard ───────────────────────────────────────────── */
+.card:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Responsive: tablet (768px) — 2 columns ─────────────────────────────── */
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Responsive: desktop (1024px) — 3 columns ───────────────────────────── */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .card.hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card__link:hover {
+    gap: var(--space-xs);
+  }
+}

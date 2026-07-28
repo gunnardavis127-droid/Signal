@@ -1,0 +1,207 @@
+/*
+ * COMPONENT: split-layout
+ * USE: Generic split section with label/tag → headline → paragraph → CTA on
+ *      the text side and a large visual (image/illustration) on the other.
+ *      Supports two column ratios: 50/50 (.split--50-50) and 25/75
+ *      (.split--25-75).
+ * BEST FOR: Feature highlights, "About" intros, case study teasers,
+ *           service overviews.
+ * EXPECTED CSS VARS (override in client custom-properties.css):
+ *   --split-gap              (default: var(--space-2xl))
+ *   --color-text, --color-text-muted, --color-primary
+ *   --color-cta-bg, --color-cta-text
+ *   --border-radius, --space-md, --space-lg, --space-xl, --space-2xl
+ *   --font-weight-bold, --font-weight-normal
+ *   --transition-fast, --ease-out-expo, --line-height-body
+ * MOTION: text side reveals on scroll (staggered: tag → headline → body → CTA),
+ *         visual side fades in at 200ms using GSAP ScrollTrigger.
+ *         Respects prefers-reduced-motion.
+ * USED IN: split-50-50.html, split-25-75.html
+ *          [add client projects here]
+ */
+
+/* ── Default custom property overrides ──────────────────────────────────── */
+:root {
+  --split-gap: var(--space-2xl);
+}
+
+/* ── Split block ────────────────────────────────────────────────────────── */
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--split-gap);
+  align-items: center;
+  padding-block: var(--section-padding-y);
+  padding-inline: var(--container-padding-x);
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+/* ── Text side ──────────────────────────────────────────────────────────── */
+.split__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.split__tag {
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.split__headline {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+.split__body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+  max-width: 60ch;
+}
+
+/* ── CTA button ─────────────────────────────────────────────────────────── */
+.split__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-cta-text);
+  background-color: var(--color-cta-bg);
+  border-radius: var(--border-radius);
+  transition:
+    transform var(--transition-fast) var(--ease-out-expo),
+    box-shadow var(--transition-fast) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.split__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 98, 254, 0.3);
+}
+
+.split__cta:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Visual side ────────────────────────────────────────────────────────── */
+.split__visual {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.split__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+/* ── Motion: initial hidden state (JS toggles) ──────────────────────────── */
+.split__tag,
+.split__headline,
+.split__body,
+.split__cta,
+.split__visual {
+  opacity: 0;
+}
+
+.split__tag,
+.split__headline,
+.split__body,
+.split__cta {
+  transform: translateY(24px);
+}
+
+.split__visual {
+  transform: translateY(16px);
+}
+
+/* ── Desktop: side-by-side layout (≥ 1024px) ────────────────────────────── */
+@media (min-width: 1024px) {
+  .split--50-50 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .split--25-75 {
+    grid-template-columns: 1fr 3fr;
+  }
+
+  /*
+   * For the 25/75 variant on desktop, the visual is the wider column.
+   * In the DOM, text comes first, visual second — so the grid naturally
+   * puts text (1fr) left and visual (3fr) right. This is the intended
+   * layout: narrow text on the left, wide visual on the right.
+   * On mobile, they stack with visual on top — see the mobile media query.
+   */
+}
+
+/* ── Tablet: 50/50 at 768px–1023px ──────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .split--50-50 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* 25/75 on tablet: also 50/50 for readability */
+  .split--25-75 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Mobile (< 768px): stack vertically, visual on top ──────────────────── */
+@media (max-width: 767px) {
+  .split {
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl);
+  }
+
+  /* Visual appears above text on mobile */
+  .split__visual {
+    order: -1;
+  }
+
+  .split__text {
+    gap: var(--space-md);
+  }
+
+  .split__cta {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .split__tag,
+  .split__headline,
+  .split__body,
+  .split__cta,
+  .split__visual {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .split__cta:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

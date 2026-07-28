@@ -1,0 +1,157 @@
+/*
+ * BASE: typography.css
+ * WHAT: Type scale and typographic defaults for the component library.
+ *       Defines h1–h6, body, caption, and .text-large using only the custom
+ *       property tokens from custom-properties.css. Mobile-first with fluid
+ *       scaling via clamp() — sizes ramp up at 768px and 1024px via the
+ *       clamp() mid-point.
+ * VARIABLES DEFINED: none
+ * VARIABLES CONSUMED:
+ *   --font-heading, --font-body
+ *   --font-size-h1 → --font-size-h6, --font-size-body, --font-size-caption, --font-size-large
+ *   --font-weight-normal, --font-weight-bold
+ *   --line-height-tight, --line-height-body
+ *   --color-text, --color-text-muted
+ * DEPENDENCIES: custom-properties.css (must be loaded before this file)
+ *
+ * DESIGN: Exactly 3 size/weight levels:
+ *   Level 1 — h1/h2 (hero and section headlines, bold weight)
+ *   Level 2 — h3/h4 (subheadings, card titles, bold weight)
+ *   Level 3 — h5/h6/body/caption (small headings, body, metadata; normal weight)
+ */
+
+/* ==========================================================================
+   BASE BODY
+   ========================================================================== */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   HEADINGS — all use --font-heading and --line-height-tight
+   ========================================================================== */
+
+h1,
+.h1 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  hyphens: none;
+}
+
+h2,
+.h2 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  hyphens: none;
+}
+
+h3,
+.h3 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  hyphens: none;
+}
+
+h4,
+.h4 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  hyphens: none;
+}
+
+h5,
+.h5 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+h6,
+.h6 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h6);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   UTILITY CLASSES
+   ========================================================================== */
+
+/* Larger body text — intro paragraphs, lead-ins, pull quotes */
+.text-large {
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-body);
+  hyphens: none;
+}
+
+/* Captions, metadata, footnotes */
+.text-caption,
+caption,
+figcaption,
+small {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-body);
+}
+
+/* ==========================================================================
+   GLOBAL RULES
+   ========================================================================== */
+
+/* Prevent orphans in paragraphs for cleaner reading */
+p {
+  text-wrap: pretty;
+  max-width: 65ch; /* comfortable reading measure */
+}
+
+/* Balance heading text across lines */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* Strong / emphasis inherits family but carries weight */
+strong, b {
+  font-weight: var(--font-weight-bold);
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* Consistent blockquote styling */
+blockquote {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+/* Inline code / pre */
+code,
+kbd,
+samp {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9em;
+}

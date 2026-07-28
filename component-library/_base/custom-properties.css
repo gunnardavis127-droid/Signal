@@ -1,0 +1,133 @@
+/*
+ * BASE: custom-properties.css
+ * WHAT: :root-level CSS custom properties for every brand-able value in the
+ *       component library. This is the "skin" layer — override these in
+ *       /projects/[client-name]/custom-properties.css to rebrand.
+ * VARIABLES DEFINED: all color, typography, spacing, motion, and layout tokens
+ * VARIABLES CONSUMED: none — this is the source of truth
+ * DEPENDENCIES: none — load second, after reset.css
+ *
+ * USAGE: Every component references these variables. Never hardcode values.
+ *        In a client project, copy this file and swap the defaults.
+ */
+
+:root {
+  /* ==========================================================================
+     COLORS
+     Default: neutral dark-on-light palette. Designed for high-end professional
+     services — restrained, high contrast, one accent for CTAs.
+     ========================================================================== */
+
+  /* Primary brand color — used for headings, key accents, active states */
+  --color-primary: #1a1a2e;
+
+  /* Secondary brand color — section backgrounds, subtle dividers, alternate text */
+  --color-secondary: #f5f5f7;
+
+  /* Accent / CTA color — buttons, links, highlights. The "pop" color. */
+  --color-accent: #0f62fe;
+
+  /* Page background color */
+  --color-bg: #ffffff;
+
+  /* Main body text color — high contrast against --color-bg */
+  --color-text: #1a1a2e;
+
+  /* Muted / secondary text — captions, metadata, less-important copy */
+  --color-text-muted: #6b7280;
+
+  /* Border and divider color — cards, inputs, separators */
+  --color-border: #e5e7eb;
+
+  /* CTA button background color */
+  --color-cta-bg: #0f62fe;
+
+  /* CTA button text color */
+  --color-cta-text: #ffffff;
+
+
+  /* ==========================================================================
+     TYPOGRAPHY
+     Default: system font stack (fastest load, native rendering). Heading uses a
+     slightly more distinctive sans-serif. Override with client brand fonts.
+     ========================================================================== */
+
+  /* Heading font family — set per client (e.g., 'Inter', 'Fraunces') */
+  --font-heading: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Body / UI font family */
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Font size scale — mobile-first minimums, typography.css applies clamp() */
+  --font-size-h1: clamp(2.25rem, 5vw, 4.5rem);
+  --font-size-h2: clamp(1.75rem, 4vw, 3rem);
+  --font-size-h3: clamp(1.375rem, 2.5vw, 2rem);
+  --font-size-h4: clamp(1.125rem, 2vw, 1.5rem);
+  --font-size-h5: 1.125rem;
+  --font-size-h6: 1rem;
+  --font-size-body: 1rem;
+  --font-size-caption: 0.8125rem;
+  --font-size-large: clamp(1.125rem, 2vw, 1.25rem);
+
+  /* Font weight scale — keep to two weights for clean hierarchy */
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+
+  /* Line height tokens */
+  --line-height-tight: 1.1;
+  --line-height-body: 1.6;
+
+
+  /* ==========================================================================
+     SPACING
+     Consistent 4px-based scale. Every component uses these — never hardcode px.
+     ========================================================================== */
+
+  --space-xs: 4px;    /* Tightest: icon-to-label gap, inline spacing */
+  --space-sm: 8px;    /* Compact: element-to-element within a group */
+  --space-md: 16px;   /* Default: standard padding, card padding */
+  --space-lg: 24px;   /* Relaxed: section-internal gaps, grid gaps */
+  --space-xl: 32px;   /* Section padding on mobile, larger gaps */
+  --space-2xl: 48px;  /* Section padding on desktop, hero spacing */
+  --space-3xl: 64px;  /* Generous section separation */
+  --space-4xl: 96px;  /* Maximum: hero top/bottom, major section dividers */
+
+
+  /* ==========================================================================
+     MOTION
+     Transition durations and easing curves. motion.css uses these as defaults.
+     ========================================================================== */
+
+  /* Fast micro-interactions: hover, focus, toggle */
+  --transition-fast: 150ms;
+
+  /* Standard transitions: reveal, expand, slide */
+  --transition-base: 300ms;
+
+  /* Slow, deliberate transitions: page loads, large reveals */
+  --transition-slow: 500ms;
+
+  /* Easing: exponential out — snappy start, smooth settle */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Easing: standard in-out for symmetric transitions */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+
+  /* ==========================================================================
+     LAYOUT
+     Global layout constraints used by .container, .section, and components.
+     ========================================================================== */
+
+  /* Maximum content width for .container */
+  --max-width: 1200px;
+
+  /* Default border radius for cards, buttons, inputs */
+  --border-radius: 8px;
+
+  /* Default vertical padding for .section */
+  --section-padding-y: var(--space-3xl);
+
+  /* Container horizontal padding on mobile / desktop */
+  --container-padding-x: var(--space-lg);
+}

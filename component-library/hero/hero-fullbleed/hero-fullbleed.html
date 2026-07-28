@@ -1,0 +1,42 @@
+<!--
+  COMPONENT: hero-fullbleed
+  USE: Full-viewport hero section with background image, overlay, centered
+       headline, subheading, and single CTA button. Landing page opener.
+  BEST FOR: Homepage hero, landing pages, campaign pages.
+  EXPECTED CSS VARS:
+    --hero-min-height        (default: 100vh)
+    --hero-overlay-color     (default: rgba(0,0,0,0.4))
+    --hero-headline-size     (default: clamp(2.5rem, 5vw, 5rem))
+    --color-cta-bg, --color-cta-text, --color-text-muted
+  MOTION: headline reveals at 0ms, subheading at 150ms, CTA at 300ms
+          (staggered). Respects prefers-reduced-motion.
+  USED IN: [add client projects here]
+  DEPENDENCIES: _base/reset.css, _base/custom-properties.css,
+                _base/typography.css, _base/motion.css, _base/utilities.css
+                GSAP 3.12.5 + ScrollTrigger plugin (CDN)
+                hero-fullbleed.css, hero-fullbleed.js
+-->
+<section class="hero" aria-label="Hero">
+  <div class="hero__bg" aria-hidden="true">
+    <img
+      class="hero__img"
+      src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+      alt=""
+      loading="eager"
+      decoding="async"
+    />
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="hero__content">
+    <div class="hero__text">
+      <h1 class="hero__headline">
+        We help law firms turn their website into their #1 source of new cases
+      </h1>
+      <p class="hero__subheading">
+        Custom websites engineered to convert visitors into retained clients — built by a team that understands professional services.
+      </p>
+    </div>
+    <a href="#contact" class="hero__cta">Start Your Project</a>
+  </div>
+</section>

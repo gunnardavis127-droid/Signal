@@ -1,0 +1,96 @@
+<!--
+  COMPONENT: list-column
+  USE: Vertical services/features list. Each item: icon → title → description,
+       stacked vertically with generous spacing.
+  VARIANT: .list--alternate — on desktop, odd items: icon left, text right;
+           even items: text left, icon right. On mobile, all items are
+           icon-above-text.
+  BEST FOR: Services/features lists, process steps with icons, capability
+            summaries, "Why choose us" lists.
+  EXPECTED CSS VARS:
+    --color-text, --color-text-muted, --color-border, --color-accent
+    --space-md, --space-lg, --space-xl, --space-2xl, --space-3xl
+    --font-weight-bold, --font-weight-normal
+    --line-height-tight, --line-height-body
+  MOTION: items reveal one at a time on scroll (100ms stagger per item).
+  RESPECTS: prefers-reduced-motion.
+  USED IN: [add client projects here]
+  DEPENDENCIES: _base/*.css, list-column.css, list-column.js
+                GSAP 3.12.5 + ScrollTrigger (CDN)
+-->
+<section class="list-section section" aria-labelledby="list-heading">
+  <div class="container">
+    <header class="list-section__header">
+      <h2 class="list-section__heading" id="list-heading">What you get with every engagement</h2>
+      <p class="list-section__lede">
+        No hand-offs. No templated solutions. Every project includes these fundamentals.
+      </p>
+    </header>
+
+    <ul class="list-column list--alternate">
+      <!-- Item 1 — odd: icon-left, text-right on desktop -->
+      <li class="list-item">
+        <div class="list-item__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4v28M4 18h28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="14" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="list-item__text">
+          <h3 class="list-item__title">Custom user-journey architecture</h3>
+          <p class="list-item__desc">
+            We map how your ideal client moves from "I have a problem" to "I need to hire someone" — then build a site that guides them to you at every step.
+          </p>
+        </div>
+      </li>
+
+      <!-- Item 2 — even: text-left, icon-right on desktop -->
+      <li class="list-item">
+        <div class="list-item__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="7" width="28" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 16h12M12 21h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="list-item__text">
+          <h3 class="list-item__title">Conversion-focused copywriting</h3>
+          <p class="list-item__desc">
+            Professional copy that speaks to your client's specific concerns — not generic marketing fluff. Every headline earns its place.
+          </p>
+        </div>
+      </li>
+
+      <!-- Item 3 — odd -->
+      <li class="list-item">
+        <div class="list-item__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="14" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M18 10v10l6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="list-item__text">
+          <h3 class="list-item__title">60-day performance guarantee</h3>
+          <p class="list-item__desc">
+            We monitor, test, and refine for two full months after launch. Our work doesn't end when the site goes live — it begins.
+          </p>
+        </div>
+      </li>
+
+      <!-- Item 4 — even -->
+      <li class="list-item">
+        <div class="list-item__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 8h16l8 8v14a2 2 0 01-2 2H8a2 2 0 01-2-2V10a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M22 8v8h8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="list-item__text">
+          <h3 class="list-item__title">Detailed analytics &amp; reporting</h3>
+          <p class="list-item__desc">
+            You'll know exactly where every lead comes from, what pages convert best, and where visitors drop off — delivered in plain English, not jargon.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>

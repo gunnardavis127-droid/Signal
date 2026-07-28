@@ -1,0 +1,29 @@
+<!--
+  COMPONENT: cta-standard
+  USE: Full-width call-to-action band — centered headline, subheading,
+       and single CTA button. Mirrors the hero tone but sits inline within
+       a page to drive conversion at the moment of peak interest.
+  BEST FOR: Section closer before footer, post-case-study CTA, pricing page
+            bottom, anywhere you need a conversion push.
+  EXPECTED CSS VARS:
+    --color-cta-bg (section background)
+    --color-cta-text (section text/button text)
+    --section-padding-y
+    --space-md, --space-lg, --space-xl, --space-2xl
+    --border-radius, --transition-fast, --ease-out-expo
+  MOTION: full section fades in on scroll. Respects prefers-reduced-motion.
+  USED IN: [add client projects here]
+  DEPENDENCIES: _base/*.css, cta-standard.css, cta-standard.js
+                GSAP 3.12.5 + ScrollTrigger (CDN)
+-->
+<section class="cta-band" aria-labelledby="cta-heading">
+  <div class="cta-band__inner">
+    <h2 class="cta-band__headline" id="cta-heading">
+      Ready to turn your website into a revenue engine?
+    </h2>
+    <p class="cta-band__subheading">
+      Let's talk about your goals. No pressure, no pitch — just a conversation about what's possible.
+    </p>
+    <a href="#contact" class="cta-band__btn">Schedule a Free Consultation</a>
+  </div>
+</section>

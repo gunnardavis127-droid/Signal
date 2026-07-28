@@ -1,0 +1,158 @@
+/*
+ * COMPONENT: list-column
+ * USE: Vertical services/features list. Each item: icon → title → description.
+ *      Supports alternating layout: odd items icon-left/text-right, even
+ *      items text-left/icon-right on desktop. All items stack vertically
+ *      (icon above text) on mobile.
+ * BEST FOR: Services/features lists, capability summaries, process steps.
+ * EXPECTED CSS VARS (override in client custom-properties.css):
+ *   --color-text, --color-text-muted, --color-border, --color-accent, --color-bg
+ *   --space-md, --space-lg, --space-xl, --space-2xl, --space-3xl
+ *   --font-weight-bold, --font-weight-normal
+ *   --line-height-tight, --line-height-body
+ *   --border-radius, --transition-fast, --ease-out-expo
+ * MOTION: items reveal one at a time on scroll (100ms stagger) via GSAP
+ *         ScrollTrigger.
+ * USED IN: list-column.html
+ *          [add client projects here]
+ */
+
+/* ── Section header ─────────────────────────────────────────────────────── */
+.list-section__header {
+  text-align: center;
+  max-width: 56ch;
+  margin-inline: auto;
+  margin-block-end: var(--space-3xl);
+}
+
+.list-section__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+  margin-block-end: var(--space-md);
+}
+
+.list-section__lede {
+  font-family: var(--font-body);
+  font-size: var(--font-size-large);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
+/* ── List ───────────────────────────────────────────────────────────────── */
+.list-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+/* ── List item ──────────────────────────────────────────────────────────── */
+.list-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding-block-end: var(--space-2xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.list-item:last-child {
+  padding-block-end: 0;
+  border-bottom: none;
+}
+
+/* ── Icon ───────────────────────────────────────────────────────────────── */
+.list-item__icon {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--border-radius);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+/* ── Text ───────────────────────────────────────────────────────────────── */
+.list-item__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.list-item__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+.list-item__desc {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+/* ── Motion: initial hidden state ───────────────────────────────────────── */
+.list-item {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Alternating layout — desktop only (≥ 1024px) ──────────────────────── */
+@media (min-width: 1024px) {
+  .list--alternate .list-item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3xl);
+  }
+
+  /*
+   * Even items (2nd, 4th, 6th…): text on the left, icon on the right.
+   * We use `flex-direction: row` by default (icon left, text right) and
+   * reverse even items with `flex-direction: row-reverse`.
+   */
+  .list--alternate .list-item:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  /*
+   * When reversed, text should still align naturally. The row-reverse flips
+   * visual order. Text block gets flex: 1 to fill available space.
+   */
+  .list--alternate .list-item__text {
+    flex: 1;
+  }
+
+  /* Even items: right-align the text content */
+  .list--alternate .list-item:nth-child(even) .list-item__text {
+    text-align: right;
+    align-items: flex-end;
+  }
+}
+
+/* ── Tablet (768px–1023px): side-by-side but no alternating ─────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .list-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .list-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,122 @@
+/*
+ * COMPONENT: cta-standard
+ * USE: Full-width CTA band that mirrors the hero tone — centered headline,
+ *      subheading, and single button. Designed to close sections or pages
+ *      with a conversion prompt.
+ * BEST FOR: Section closer, pre-footer, post-case-study CTA, bottom of
+ *           services/pricing pages.
+ * EXPECTED CSS VARS (override in client custom-properties.css):
+ *   --color-cta-bg (section background — default: var(--color-accent))
+ *   --color-cta-text (section text color — default: #ffffff)
+ *   --section-padding-y
+ *   --space-md, --space-lg, --space-xl, --space-2xl, --space-3xl
+ *   --border-radius, --transition-fast, --ease-out-expo
+ *   --font-weight-bold, --font-weight-normal
+ *   --line-height-tight, --line-height-body
+ *   --font-size-h4 (headline size in band)
+ * MOTION: full section fades in on scroll via GSAP ScrollTrigger.
+ * USED IN: cta-standard.html
+ *          [add client projects here]
+ */
+
+/* ── Band block ─────────────────────────────────────────────────────────── */
+.cta-band {
+  background-color: var(--color-cta-bg, var(--color-accent));
+  color: var(--color-cta-text, #ffffff);
+  padding-block: var(--section-padding-y);
+  padding-inline: var(--container-padding-x);
+  text-align: center;
+}
+
+/* ── Inner content wrapper ──────────────────────────────────────────────── */
+.cta-band__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+/* ── Headline ───────────────────────────────────────────────────────────── */
+.cta-band__headline {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: inherit;
+  text-wrap: balance;
+}
+
+/* ── Subheading ─────────────────────────────────────────────────────────── */
+.cta-band__subheading {
+  font-family: var(--font-body);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-body);
+  color: inherit;
+  opacity: 0.9;
+  text-wrap: pretty;
+}
+
+/* ── Button ─────────────────────────────────────────────────────────────── */
+.cta-band__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-2xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-cta-bg, var(--color-accent));
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  transition:
+    transform var(--transition-fast) var(--ease-out-expo),
+    box-shadow var(--transition-fast) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.cta-band__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.cta-band__btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ── Motion: initial hidden state ───────────────────────────────────────── */
+.cta-band {
+  opacity: 0;
+}
+
+/* ── Responsive: mobile (< 768px) ───────────────────────────────────────── */
+@media (max-width: 767px) {
+  .cta-band {
+    padding-block: var(--space-2xl);
+  }
+
+  .cta-band__inner {
+    gap: var(--space-lg);
+  }
+
+  .cta-band__btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cta-band {
+    opacity: 1;
+    transition: none;
+  }
+
+  .cta-band__btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

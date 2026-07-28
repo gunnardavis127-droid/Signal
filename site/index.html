@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Signal — We turn your website into a revenue engine. Premium web agency for businesses with high customer lifetime value." />
+  <title>Signal — Websites that convert</title>
+
+  <!-- Component Library: _base -->
+  <link rel="stylesheet" href="/lib/_base/reset.css" />
+  <link rel="stylesheet" href="/lib/_base/custom-properties.css" />
+  <link rel="stylesheet" href="/lib/_base/typography.css" />
+  <link rel="stylesheet" href="/lib/_base/motion.css" />
+  <link rel="stylesheet" href="/lib/_base/utilities.css" />
+
+  <!-- Component Library: modules -->
+  <link rel="stylesheet" href="/lib/hero/hero-fullbleed.css" />
+  <link rel="stylesheet" href="/lib/card-grid/card-grid.css" />
+  <link rel="stylesheet" href="/lib/list-column/list-column.css" />
+  <link rel="stylesheet" href="/lib/cta/cta-standard.css" />
+  <link rel="stylesheet" href="/lib/footer/footer-standard.css" />
+
+  <!--
+    SIGNAL BRAND OVERRIDES
+    Dark theme, warm muted gold accent (#c4a44a), system font stack.
+    Overrides the default light palette from custom-properties.css.
+  -->
+  <style>
+    :root {
+      /* ── Colors: dark premium palette ── */
+      --color-primary: #0a0a0a;
+      --color-secondary: #111111;
+      --color-accent: #c4a44a;
+      --color-bg: #0a0a0a;
+      --color-text: #f0ede5;
+      --color-text-muted: #8c8a82;
+      --color-border: rgba(255, 255, 255, 0.07);
+      --color-cta-bg: #c4a44a;
+      --color-cta-text: #0a0a0a;
+
+      /* ── Typography: system font stack, generous scale ── */
+      --font-heading: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-weight-bold: 600;
+      --font-weight-normal: 400;
+
+      /* ── Spacing: generous ── */
+      --section-padding-y: var(--space-4xl);
+    }
+
+    /* ── Global dark-theme base ── */
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-normal);
+      line-height: var(--line-height-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Section dividers ── */
+    .section + .section {
+      border-top: 1px solid var(--color-border);
+    }
+
+    /*
+     * HERO: typography-only (no photo) — uses a subtle radial gradient
+     * as the background instead of a stock image.
+     */
+    .hero {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(196, 164, 74, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(196, 164, 74, 0.03) 0%, transparent 60%),
+        var(--color-primary);
+    }
+
+    /* Remove the image and overlay — we're using gradient background */
+    .hero__bg {
+      display: none;
+    }
+
+    /* ── Card grid: dark card style ── */
+    .card {
+      background-color: var(--color-secondary);
+      border: 1px solid var(--color-border);
+    }
+
+    .card.hover-lift:hover {
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.4),
+        0 12px 48px rgba(196, 164, 74, 0.06);
+    }
+
+    .card__icon {
+      background-color: rgba(196, 164, 74, 0.1);
+    }
+
+    /* ── List column: dark style ── */
+    .list-item__icon {
+      background-color: rgba(196, 164, 74, 0.1);
+    }
+
+    /* ── CTA band: dark background with accent glow ── */
+    .cta-band {
+      background-color: var(--color-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(196, 164, 74, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-band__btn {
+      background-color: var(--color-cta-bg);
+      color: var(--color-cta-text);
+    }
+
+    .cta-band__btn:hover {
+      box-shadow: 0 8px 24px rgba(196, 164, 74, 0.3);
+    }
+
+    /* ── Footer overrides ── */
+    .site-footer {
+      --footer-bg: #060606;
+      --footer-text: #f0ede5;
+      --footer-muted: #8c8a82;
+      --footer-border: rgba(255, 255, 255, 0.07);
+      --footer-accent: #c4a44a;
+    }
+
+    /*
+     * RESPONSIVE: tighten section padding on mobile
+     */
+    @media (max-width: 767px) {
+      :root {
+        --section-padding-y: var(--space-3xl);
+      }
+    }
+
+    /*
+     * Skip link — hidden until focused, for accessibility
+     */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      z-index: 100;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-cta-bg);
+      color: var(--color-cta-text);
+      border-radius: var(--border-radius);
+      font-weight: var(--font-weight-bold);
+      transition: top var(--transition-fast) var(--ease-out-expo);
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip navigation link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <main id="main-content">
+    <!--
+      ─────────────────────────────────────────────────────────────────
+      SECTION 1: HERO — Full-bleed, typography-only, dark gradient bg
+      ─────────────────────────────────────────────────────────────────
+    -->
+    <section class="hero" aria-label="Hero">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="hero__content">
+        <div class="hero__text">
+          <h1 class="hero__headline">
+            We turn your website into a revenue&nbsp;engine.
+          </h1>
+          <p class="hero__subheading">
+            Custom websites engineered to convert visitors into clients — built for businesses where every lead is worth thousands, not pennies.
+          </p>
+        </div>
+        <a href="#contact" class="hero__cta">Start a conversation</a>
+      </div>
+    </section>
+
+    <!--
+      ─────────────────────────────────────────────────────────────────
+      SECTION 2: PROOF / CREDIBILITY — 3-card grid
+      ─────────────────────────────────────────────────────────────────
+    -->
+    <section class="card-section section" aria-labelledby="credibility-heading">
+      <div class="container">
+        <header class="card-section__header">
+          <h2 class="card-section__heading" id="credibility-heading">Not just another agency website.</h2>
+          <p class="card-section__lede">
+            We built a system that produces award-level work at speed — without the award-level price tag.
+          </p>
+        </header>
+
+        <div class="card-grid">
+          <!-- Card 1: Methodology -->
+          <article class="card hover-lift">
+            <div class="card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v22M3 14h22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="14" cy="14" r="3" fill="currentColor" opacity="0.6"/>
+              </svg>
+            </div>
+            <h3 class="card__title">AI-accelerated, human-crafted</h3>
+            <p class="card__desc">
+              Our toolchain handles the repetitive work so our designers and developers can focus on what matters: the decisions that drive conversions.
+            </p>
+          </article>
+
+          <!-- Card 2: Outcome -->
+          <article class="card hover-lift">
+            <div class="card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 22l3-10h14l3 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 22h16" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 6l2 6h8l2-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Sites that convert, not just impress</h3>
+            <p class="card__desc">
+              Every layout decision, every headline, every CTA placement is backed by conversion principles — not design trends.
+            </p>
+          </article>
+
+          <!-- Card 3: Process -->
+          <article class="card hover-lift">
+            <div class="card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M14 7v8l6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="5" cy="5" r="2" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="card__title">8 weeks, 5 phases, zero ambiguity</h3>
+            <p class="card__desc">
+              A proven process that eliminates surprises. You'll know exactly what's happening, when, and why — from kickoff to launch.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      ─────────────────────────────────────────────────────────────────
+      SECTION 3: PROCESS OVERVIEW — 4-step alternating list
+      ─────────────────────────────────────────────────────────────────
+    -->
+    <section class="list-section section" aria-labelledby="process-heading">
+      <div class="container">
+        <header class="list-section__header">
+          <h2 class="list-section__heading" id="process-heading">How we work</h2>
+          <p class="list-section__lede">
+            Five phases, one goal: a website that pays for itself.
+          </p>
+        </header>
+
+        <ul class="list-column list--alternate">
+          <!-- Step 1: Intake -->
+          <li class="list-item">
+            <div class="list-item__icon" aria-hidden="true">
+              <span style="font-family: var(--font-heading); font-size: 1.375rem; font-weight: var(--font-weight-bold); color: var(--color-accent);">01</span>
+            </div>
+            <div class="list-item__text">
+              <h3 class="list-item__title">Intake</h3>
+              <p class="list-item__desc">
+                We learn your business, your customers, and your goals. Every project starts with a structured discovery session — no assumptions, no templates.
+              </p>
+            </div>
+          </li>
+
+          <!-- Step 2: Planning -->
+          <li class="list-item">
+            <div class="list-item__icon" aria-hidden="true">
+              <span style="font-family: var(--font-heading); font-size: 1.375rem; font-weight: var(--font-weight-bold); color: var(--color-accent);">02</span>
+            </div>
+            <div class="list-item__text">
+              <h3 class="list-item__title">Planning</h3>
+              <p class="list-item__desc">
+                User-journey architecture, site map, wireframes. We map every path your customer takes — before writing a single line of code.
+              </p>
+            </div>
+          </li>
+
+          <!-- Step 3: Build -->
+          <li class="list-item">
+            <div class="list-item__icon" aria-hidden="true">
+              <span style="font-family: var(--font-heading); font-size: 1.375rem; font-weight: var(--font-weight-bold); color: var(--color-accent);">03</span>
+            </div>
+            <div class="list-item__text">
+              <h3 class="list-item__title">Build</h3>
+              <p class="list-item__desc">
+                AI-accelerated development with human direction. Our component library and toolchain produce clean, fast, accessible code — fast.
+              </p>
+            </div>
+          </li>
+
+          <!-- Step 4: Delivery -->
+          <li class="list-item">
+            <div class="list-item__icon" aria-hidden="true">
+              <span style="font-family: var(--font-heading); font-size: 1.375rem; font-weight: var(--font-weight-bold); color: var(--color-accent);">04</span>
+            </div>
+            <div class="list-item__text">
+              <h3 class="list-item__title">Delivery &amp; Optimization</h3>
+              <p class="list-item__desc">
+                Launch, monitor, refine. Every project includes 60 days of performance tracking and iterative improvements — because launch day is day one, not the finish line.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!--
+      ─────────────────────────────────────────────────────────────────
+      SECTION 4: CTA / CONTACT — closing conversion ask
+      ─────────────────────────────────────────────────────────────────
+    -->
+    <section class="cta-band" aria-labelledby="cta-heading" id="contact">
+      <div class="cta-band__inner">
+        <h2 class="cta-band__headline" id="cta-heading">
+          Your website should be your best salesperson.
+        </h2>
+        <p class="cta-band__subheading">
+          Let's talk about what that looks like for your business — no pressure, no pitch, just a conversation.
+        </p>
+        <a href="mailto:hello@signal.digital" class="cta-band__btn">Get in touch</a>
+      </div>
+    </section>
+  </main>
+
+  <!--
+    ─────────────────────────────────────────────────────────────────
+    FOOTER — standard 4-column
+    ─────────────────────────────────────────────────────────────────
+  -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__grid">
+      <!-- Column 1: Logo + description -->
+      <div class="site-footer__col site-footer__col--brand">
+        <a href="/" class="site-footer__logo" aria-label="Signal — Home">
+          Signal
+        </a>
+        <p class="site-footer__desc">
+          We turn websites into revenue engines for law firms, medical practices, SaaS companies, and professional services that depend on their pipeline.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <nav class="site-footer__col" aria-label="Quick links">
+        <h3 class="site-footer__heading">Quick Links</h3>
+        <ul class="site-footer__links">
+          <li><a href="#credibility-heading">Our Approach</a></li>
+          <li><a href="#process-heading">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Column 3: Services -->
+      <nav class="site-footer__col" aria-label="Services">
+        <h3 class="site-footer__heading">Services</h3>
+        <ul class="site-footer__links">
+          <li><a href="#contact">Web Design</a></li>
+          <li><a href="#contact">Conversion Strategy</a></li>
+          <li><a href="#contact">Custom Development</a></li>
+          <li><a href="#contact">Ongoing Optimization</a></li>
+        </ul>
+      </nav>
+
+      <!-- Column 4: Contact -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">Get in Touch</h3>
+        <address class="site-footer__contact">
+          <a href="mailto:hello@signal.digital">hello@signal.digital</a>
+          <span>Based in San Francisco, CA</span>
+        </address>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">
+        &copy; <span id="footer-year">2026</span> Signal. All rights reserved.
+      </p>
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- GSAP from CDN (required by component JS) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Component Library: JS modules -->
+  <script src="/lib/hero/hero-fullbleed.js"></script>
+  <script src="/lib/card-grid/card-grid.js"></script>
+  <script src="/lib/list-column/list-column.js"></script>
+  <script src="/lib/cta/cta-standard.js"></script>
+  <script src="/lib/footer/footer-standard.js"></script>
+</body>
+</html>

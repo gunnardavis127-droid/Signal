@@ -1,0 +1,242 @@
+/*
+ * COMPONENT: footer-standard
+ * USE: 4-column site footer with logo+desc, quick links, services, contact+
+ *      social, and a bottom bar with copyright + legal links. Semantic
+ *      <footer> with proper nav landmarks and accessible labeling.
+ * BEST FOR: Standard site footer for professional services firms. Used on
+ *           every page.
+ * EXPECTED CSS VARS (override in client custom-properties.css):
+ *   --color-bg     (footer background — default: #0d0d1a, a dark variant)
+ *   --color-text   (footer text — default: #ffffff)
+ *   --color-text-muted (footer muted text)
+ *   --color-border (footer dividers)
+ *   --color-accent (link hover color)
+ *   --space-sm, --space-md, --space-lg, --space-xl, --space-2xl, --space-3xl
+ *   --border-radius, --transition-fast, --ease-out-expo
+ *   --font-weight-bold, --font-weight-normal
+ *   --line-height-tight, --line-height-body
+ * MOTION: subtle fade-in on scroll (restrained). Respects prefers-reduced-motion.
+ * USED IN: footer-standard.html
+ *          [add client projects here]
+ */
+
+/* ── Default dark-skin overrides for footer ─────────────────────────────── */
+.site-footer {
+  --footer-bg: var(--color-bg, #0d0d1a);
+  --footer-text: var(--color-text, #ffffff);
+  --footer-muted: var(--color-text-muted, #9ca3af);
+  --footer-border: var(--color-border, rgba(255, 255, 255, 0.08));
+  --footer-accent: var(--color-accent, #0f62fe);
+
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding-block-start: var(--space-3xl);
+  padding-inline: var(--container-padding-x);
+}
+
+/* ── Grid ───────────────────────────────────────────────────────────────── */
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+/* ── Columns ────────────────────────────────────────────────────────────── */
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ── Logo ───────────────────────────────────────────────────────────────── */
+.site-footer__logo {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  color: var(--footer-text);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.site-footer__logo:hover {
+  opacity: 0.85;
+}
+
+/* ── Description ────────────────────────────────────────────────────────── */
+.site-footer__desc {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--footer-muted);
+  max-width: 32ch;
+}
+
+/* ── Column headings ────────────────────────────────────────────────────── */
+.site-footer__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: var(--footer-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-block-end: var(--space-sm);
+}
+
+/* ── Link lists ─────────────────────────────────────────────────────────── */
+.site-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.site-footer__links a {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  color: var(--footer-muted);
+  transition: color var(--transition-fast) var(--ease-out-expo);
+  text-decoration: none;
+}
+
+.site-footer__links a:hover {
+  color: var(--footer-text);
+}
+
+.site-footer__links a:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Contact ────────────────────────────────────────────────────────────── */
+.site-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-style: normal;
+}
+
+.site-footer__contact a,
+.site-footer__contact span {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  color: var(--footer-muted);
+  transition: color var(--transition-fast) var(--ease-out-expo);
+}
+
+.site-footer__contact a:hover {
+  color: var(--footer-text);
+}
+
+/* ── Social links ───────────────────────────────────────────────────────── */
+.site-footer__social {
+  display: flex;
+  gap: var(--space-md);
+  margin-block-start: var(--space-sm);
+}
+
+.site-footer__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--footer-muted);
+  border-radius: var(--border-radius);
+  transition:
+    color var(--transition-fast) var(--ease-out-expo),
+    background-color var(--transition-fast) var(--ease-out-expo);
+}
+
+.site-footer__social a:hover {
+  color: var(--footer-text);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.site-footer__social a:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 2px;
+}
+
+/* ── Bottom bar ─────────────────────────────────────────────────────────── */
+.site-footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-block: var(--space-xl);
+  margin-block-start: var(--space-3xl);
+  border-top: 1px solid var(--footer-border);
+}
+
+.site-footer__copyright {
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption);
+  color: var(--footer-muted);
+}
+
+.site-footer__legal {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.site-footer__legal a {
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption);
+  color: var(--footer-muted);
+  transition: color var(--transition-fast) var(--ease-out-expo);
+}
+
+.site-footer__legal a:hover {
+  color: var(--footer-text);
+}
+
+.site-footer__legal a:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Motion: initial hidden state ───────────────────────────────────────── */
+.site-footer {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* ── Responsive: tablet (768px) — 2 columns ─────────────────────────────── */
+@media (min-width: 768px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .site-footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* ── Responsive: desktop (1024px) — 4 columns ───────────────────────────── */
+@media (min-width: 1024px) {
+  .site-footer__grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .site-footer {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .site-footer__links a,
+  .site-footer__contact a,
+  .site-footer__social a,
+  .site-footer__legal a {
+    transition: none;
+  }
+}

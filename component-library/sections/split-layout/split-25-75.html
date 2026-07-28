@@ -1,0 +1,38 @@
+<!--
+  COMPONENT: split-layout (variant: split-25-75)
+  USE: Narrow text column (25%) + wide visual column (75%). Label/tag →
+       headline → paragraph → CTA on the text side; large image on the
+       visual side.
+  BEST FOR: Highlighting a single compelling visual or graphic while keeping
+            supporting copy tight and focused. Portfolio showcases,
+            product detail overviews.
+  EXPECTED CSS VARS:
+    --split-gap              (default: var(--space-2xl))
+    --color-text, --color-text-muted, --color-cta-bg, --color-cta-text
+  MOTION: text side reveals first (staggered: tag→headline→body→CTA),
+          visual side fades in at 200ms.
+  RESPECTS: prefers-reduced-motion.
+  USED IN: [add client projects here]
+  DEPENDENCIES: _base/*.css, split-layout.css, split-layout.js
+                GSAP 3.12.5 + ScrollTrigger (CDN)
+-->
+<section class="split split--25-75" aria-label="Our work">
+  <div class="split__text">
+    <span class="split__tag">Featured Case Study</span>
+    <h2 class="split__headline">How a boutique law firm tripled their inbound leads</h2>
+    <p class="split__body">
+      Redesigned their entire digital presence with user-journey architecture and conversion-focused copy. Results: 3.4× more qualified inquiries in 90 days.
+    </p>
+    <a href="#case-studies" class="split__cta">Read the Case Study</a>
+  </div>
+
+  <div class="split__visual" aria-hidden="true">
+    <img
+      class="split__img"
+      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
+      alt="Analytics dashboard showing growth metrics"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</section>

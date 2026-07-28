@@ -1,0 +1,99 @@
+<!--
+  COMPONENT: footer-standard
+  USE: 4-column site footer — column 1: logo + short description, column 2:
+       quick links, column 3: services/offerings, column 4: contact info +
+       social links. Bottom bar: copyright + legal links.
+  BEST FOR: Every page on the site. Standard site footer for professional
+            services firms.
+  EXPECTED CSS VARS:
+    --color-bg (footer background — defaults to dark: #0d0d1a)
+    --color-text (footer text — defaults to #ffffff)
+    --color-text-muted (footer muted text)
+    --color-border (footer dividers)
+    --color-accent (social link hover)
+    --space-sm, --space-md, --space-lg, --space-xl, --space-2xl
+    --font-weight-bold, --font-weight-normal
+    --transition-fast, --ease-out-expo
+  MOTION: subtle fade-in on scroll (restrained — footer doesn't need
+          dramatic animation). Respects prefers-reduced-motion.
+  ACCESSIBILITY: semantic <footer>, nav landmarks, labeled social links.
+  USED IN: [add client projects here]
+  DEPENDENCIES: _base/*.css, footer-standard.css, footer-standard.js
+                GSAP 3.12.5 + ScrollTrigger (CDN)
+-->
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__grid">
+    <!-- Column 1: Logo + description -->
+    <div class="site-footer__col site-footer__col--brand">
+      <a href="/" class="site-footer__logo" aria-label="Signal — Home">
+        Signal
+      </a>
+      <p class="site-footer__desc">
+        We build premium websites that turn visitors into revenue — for law firms, medical practices, SaaS companies, and professional services that depend on their pipeline.
+      </p>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <nav class="site-footer__col" aria-label="Quick links">
+      <h3 class="site-footer__heading">Quick Links</h3>
+      <ul class="site-footer__links">
+        <li><a href="#work">Our Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </nav>
+
+    <!-- Column 3: Services -->
+    <nav class="site-footer__col" aria-label="Services">
+      <h3 class="site-footer__heading">Services</h3>
+      <ul class="site-footer__links">
+        <li><a href="#web-design">Web Design</a></li>
+        <li><a href="#conversion">Conversion Optimization</a></li>
+        <li><a href="#seo">SEO &amp; Content</a></li>
+        <li><a href="#branding">Brand Identity</a></li>
+        <li><a href="#maintenance">Ongoing Support</a></li>
+      </ul>
+    </nav>
+
+    <!-- Column 4: Contact + Social -->
+    <div class="site-footer__col">
+      <h3 class="site-footer__heading">Get in Touch</h3>
+      <address class="site-footer__contact">
+        <a href="mailto:hello@signal.digital">hello@signal.digital</a>
+        <a href="tel:+15551234567">(555) 123-4567</a>
+        <span>San Francisco, CA</span>
+      </address>
+      <div class="site-footer__social">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Signal on LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M4.5 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM4 7h1v8H4V7zm4 0h1v1.2c.4-.7 1.2-1.3 2.3-1.2 1.5 0 2.7 1 2.7 3.2V15h-1v-4.6c0-1.3-.7-2-1.7-2-1 0-1.6.7-1.6 2V15H9V7z"/>
+          </svg>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Signal on X (Twitter)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M11.5 8.8L17 2h-1.3L11 7.8 6.7 2H2l5.8 8.8L2 18h1.3l5.2-6.3 4.2 6.3H18L11.5 8.8zM9.6 11l-.6-.9L3.8 3h2l3.9 5.8.6.9L16.2 17h-2L9.6 11z"/>
+          </svg>
+        </a>
+        <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" aria-label="Signal on Dribbble">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3.5 10h13M10 2c2 3 3 5 3 8s-1 5-3 8M10 2C8 5 7 5 7 10s1 5 3 8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="site-footer__bottom">
+    <p class="site-footer__copyright">
+      &copy; <span id="footer-year">2026</span> Signal. All rights reserved.
+    </p>
+    <nav class="site-footer__legal" aria-label="Legal">
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms of Service</a>
+    </nav>
+  </div>
+</footer>

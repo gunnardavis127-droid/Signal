@@ -1,0 +1,77 @@
+<!--
+  COMPONENT: card-grid (variant: grid-3col)
+  USE: 3-column card grid for services, features, testimonials, or product
+       highlights. Each card: icon/emoji → title (h3) → description → optional
+       link arrow.
+  BEST FOR: Services overview, features section, product comparison,
+            testimonial grid, portfolio highlights.
+  EXPECTED CSS VARS:
+    --color-bg, --color-border, --border-radius, --space-lg
+    --color-text, --color-text-muted, --color-accent
+  MOTION: cards stagger-reveal on scroll (card 1 at 0ms, card 2 at 100ms,
+          card 3 at 200ms) via GSAP ScrollTrigger.
+  INTERACTION: .hover-lift class — scale(1.02) + subtle shadow on hover.
+  RESPECTS: prefers-reduced-motion.
+  USED IN: [add client projects here]
+  DEPENDENCIES: _base/*.css, card-grid.css, card-grid.js
+                GSAP 3.12.5 + ScrollTrigger (CDN)
+-->
+<section class="card-section section" aria-labelledby="card-section-heading">
+  <div class="container">
+    <header class="card-section__header">
+      <h2 class="card-section__heading" id="card-section-heading">How we deliver results</h2>
+      <p class="card-section__lede">
+        Every engagement follows a proven process that's produced millions in measurable revenue for professional services firms.
+      </p>
+    </header>
+
+    <div class="card-grid">
+      <!-- Card 1 -->
+      <article class="card hover-lift">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="card__title">Discovery &amp; Strategy</h3>
+        <p class="card__desc">
+          We audit your existing site, analyze your competitors, and map your customer's decision journey before writing a single line of code.
+        </p>
+        <span class="card__link" aria-hidden="true">Learn more →</span>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card hover-lift">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="6" width="24" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M4 12h24" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="8" cy="9" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="card__title">Design &amp; Build</h3>
+        <p class="card__desc">
+          Custom, conversion-optimized designs built with modern tooling. Every layout decision is backed by data, not trends.
+        </p>
+        <span class="card__link" aria-hidden="true">Learn more →</span>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card hover-lift">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 22l4-14h12l4 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 22h16" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 26h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="card__title">Launch &amp; Optimize</h3>
+        <p class="card__desc">
+          We don't disappear after launch. Every project includes 60 days of performance monitoring, A/B testing, and iterative refinement.
+        </p>
+        <span class="card__link" aria-hidden="true">Learn more →</span>
+      </article>
+    </div>
+  </div>
+</section>
