@@ -66,19 +66,47 @@
     }
 
     /*
-     * HERO: typography-only (no photo) — uses a subtle radial gradient
-     * as the background instead of a stock image.
+     * HERO: parallax photo background with strong dark overlay.
+     * The background image moves slower than the content on scroll,
+     * creating a dramatic depth effect.
      */
     .hero {
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(196, 164, 74, 0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(196, 164, 74, 0.03) 0%, transparent 60%),
-        var(--color-primary);
+      position: relative;
+      overflow: hidden;
+      background-color: var(--color-primary);
     }
 
-    /* Remove the image and overlay — we're using gradient background */
+    /* Background image layer — sits behind everything, parallaxes on scroll */
     .hero__bg {
-      display: none;
+      display: block;
+      position: absolute;
+      inset: -20% 0;  /* extends beyond viewport so parallax doesn't reveal edges */
+      z-index: 0;
+      background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      will-change: transform;
+    }
+
+    /*
+     * Strong dark overlay — creates the high-contrast look.
+     * Layered: a deep dark gradient at the bottom fading up,
+     * plus a uniform dark tint across the whole hero.
+     */
+    .hero__overlay {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to bottom, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.75) 70%, rgba(10, 10, 10, 0.92) 100%),
+        rgba(10, 10, 10, 0.35);
+    }
+
+    /* Content sits above the overlay */
+    .hero__content {
+      position: relative;
+      z-index: 2;
     }
 
     /* ── Card grid: dark card style ── */
@@ -136,11 +164,51 @@
     }
 
     /*
-     * RESPONSIVE: tighten section padding on mobile
+     * SECTION IMMERSION: generous height so each section dominates the viewport.
+     * The reader lingers in one section at a time — no rushed scrolling.
+     */
+    .section {
+      padding-top: clamp(80px, 15vh, 160px);
+      padding-bottom: clamp(80px, 15vh, 160px);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    /*
+     * Section reveal classes — toggled by GSAP ScrollTrigger.
+     * Sections start slightly dimmed and sharpen as they become the focal point.
+     */
+    .section-entering {
+      opacity: 0.35;
+      will-change: opacity;
+    }
+
+    .section-active {
+      opacity: 1;
+    }
+
+    .section-leaving {
+      opacity: 0.35;
+    }
+
+    /* Hero gets its own rules — no min-height, no extra padding */
+    .hero.section {
+      min-height: auto;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    /*
+     * RESPONSIVE: tighter on mobile but still immersive
      */
     @media (max-width: 767px) {
-      :root {
-        --section-padding-y: var(--space-3xl);
+      .section {
+        padding-top: clamp(48px, 10vh, 80px);
+        padding-bottom: clamp(48px, 10vh, 80px);
+        min-height: auto;
       }
     }
 
@@ -176,7 +244,7 @@
       SECTION 1: HERO — Full-bleed, typography-only, dark gradient bg
       ─────────────────────────────────────────────────────────────────
     -->
-    <section class="hero" aria-label="Hero">
+    <section class="hero section" aria-label="Hero">
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__overlay"></div>
       </div>
@@ -332,7 +400,7 @@
       SECTION 4: CTA / CONTACT — closing conversion ask
       ─────────────────────────────────────────────────────────────────
     -->
-    <section class="cta-band" aria-labelledby="cta-heading" id="contact">
+    <section class="cta-band section" aria-labelledby="cta-heading" id="contact">
       <div class="cta-band__inner">
         <h2 class="cta-band__headline" id="cta-heading">
           Your website should be your best source of new clients.
@@ -415,5 +483,74 @@
   <script src="/lib/list-column/list-column.js"></script>
   <script src="/lib/cta/cta-standard.js"></script>
   <script src="/lib/footer/footer-standard.js"></script>
+
+  <!-- Immersive scroll experience: one section at a time, crossfade transitions, heavy inertia -->
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      /*
+       * HERO PARALLAX — ultra-slow cinematic drift.
+       * scrub: 3 creates a long, mesmerising lag behind the scroll.
+       */
+      gsap.to('.hero__bg', {
+        y: '12%',
+        scale: 1.04,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 3
+        }
+      });
+
+      gsap.to('.hero__overlay', {
+        opacity: 0.88,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 2
+        }
+      });
+
+      /*
+       * SECTION CROSSFADES — each section fades in as it becomes the focal point,
+       * then fades out as the next takes over. One section at a time.
+       */
+      document.querySelectorAll('.section:not(.hero)').forEach(function (section) {
+        gsap.fromTo(section,
+          { opacity: 0.25 },
+          {
+            opacity: 1,
+            ease: 'power1.inOut',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              end: 'center 40%',
+              scrub: 2
+            }
+          }
+        );
+
+        gsap.to(section,
+          {
+            opacity: 0.3,
+            ease: 'power1.inOut',
+            scrollTrigger: {
+              trigger: section,
+              start: 'center 50%',
+              end: 'bottom 20%',
+              scrub: 2
+            }
+          }
+        );
+      });
+    })();
+  </script>
 </body>
 </html>
